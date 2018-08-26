@@ -4,10 +4,14 @@ import net.rednode.rtc.model.TupleType;
 
 public class Tuple {
 
-    private static final int X = 0;
-    private static final int Y = 1;
-    private static final int Z = 2;
-    private static final int W = 3;
+    public static final int X = 0;
+    public static final int Y = 1;
+    public static final int Z = 2;
+    public static final int W = 3;
+    public static final int RED = 0;
+    public static final int GREEN = 1;
+    public static final int BLUE = 2;
+    public static final int ALPHA = 3;
     public static final double epsilon = 0.0000001;
 
 
@@ -21,6 +25,14 @@ public class Tuple {
 
     public static double[] vector(double x, double y, double z) {
         return new double[] {x, y, z, 0.0};
+    }
+
+    public static double[] color(double r, double g, double b) {
+        return new double[] {r, g, b, 0};
+    }
+
+    public static double[] color(double red, double green, double blue, double alpha) {
+        return new double[] {red, green, blue, alpha};
     }
 
     public static double X(double[] tuple) {
@@ -81,6 +93,13 @@ public class Tuple {
                              tuple[Y] * scalar,
                              tuple[Z] * scalar,
                              tuple[W] * scalar};
+    }
+
+    public static double[] multiply(double[] a, double[] b) {
+        return new double[] {a[RED] * b[RED],
+                             a[GREEN] * b[GREEN],
+                             a[BLUE] * b[BLUE],
+                             a[ALPHA] * b[ALPHA]};
     }
 
     public static double[] divide(double[] tuple, double scalar) {

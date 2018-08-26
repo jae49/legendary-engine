@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import net.rednode.rtc.Canvas;
 import net.rednode.rtc.model.TupleType;
 
 import org.junit.Test;
@@ -272,5 +273,98 @@ public class TupleTest {
         c = vector(1, -2, 1); //expected result
         assertTrue(tuplesEqual(cross(b, a), c));
     }
+
+    @Test
+    public void testColorCreation() {
+        double[] c;
+
+        c = color(-0.5, 0.4, 1.7);
+        assertEquals(-0.5, c[RED], epsilon);
+        assertEquals(0.4, c[GREEN], epsilon);
+        assertEquals(1.7, c[BLUE], epsilon);
+        assertEquals(0.0, c[ALPHA], epsilon);
+
+        c = color(0.4, -4.1, -0.7, 0.3);
+        assertEquals(0.4, c[RED], epsilon);
+        assertEquals(-4.1, c[GREEN], epsilon);
+        assertEquals(-0.7, c[BLUE], epsilon);
+        assertEquals(0.3, c[ALPHA], epsilon);
+    }
+
+    @Test
+    public void testColorAdd() {
+        double[] a, b, c;
+        a = color(0.9, 0.6, 0.75);
+        b = color(0.7, 0.1, 0.25);
+        c = color(1.6, 0.7, 1.0); // expected value
+        assertTrue(tuplesEqual(add(a,b), c));
+    }
+
+    @Test
+    public void testColorSubtract() {
+        double[] a, b, c;
+        a = color(0.9, 0.6, 0.75);
+        b = color(0.7, 0.1, 0.25);
+        c = color(0.2, 0.5, 0.5);
+        assertTrue(tuplesEqual(sub(a,b), c));
+    }
+
+    @Test
+    public void testColorMultiply() {
+        double[] a, b, c;
+        double scalar;
+
+        // multiply by scalar
+        a = color(0.2, 0.3, 0.4);
+        scalar = 2;
+        c = color(0.4, 0.6, 0.8); //expected value
+        assertTrue(tuplesEqual(multiply(a, scalar), c));
+
+        // multiply one color by another color
+        a = color(1, 0.2, 0.4);
+        b = color(0.9, 1, 0.1);
+        c = color(0.9, 0.2, 0.04); //expected value
+        assertTrue(tuplesEqual(multiply(a, b), c));
+    }
+
+    @Test
+    public void testColorDivide() {
+        double[] a, c;
+        double scalar;
+
+        a = color(0.5, 0.3, 0.7);
+        scalar = 2;
+        c = color(0.25, 0.15, 0.35);
+        assertTrue(tuplesEqual(divide(a, scalar), c));
+    }
+
+    @Test
+    public void testCanvasCreate() {
+        // create a canvas
+        int w = 10;
+        int h = 20;
+        double[][][] canvas = Canvas.create(w, h);
+        // every element should be 0.0
+        assertEquals(w, canvas.length);
+        for (int width = 0; width < canvas.length; width++) {
+            assertEquals(h, canvas[width].length);
+            for (int height = 0; height < canvas[width].length; height++) {
+                assertEquals(4, canvas[width][height].length);
+                for (int i = 0; i < 4; i++) assertEquals(0, canvas[width][height][i], epsilon);
+            }
+        }
+    }
+
+    @Test
+    public void testCanvasPixelWrite() {
+        // create a canvas
+        int w = 10;
+        int h = 20;
+        double[] red = color(1, 0, 0);
+        double[][][] canvas = Canvas.create(w, h);
+        Canvas.writePixel(canvas, 2, 3, red);
+        assertTrue(tuplesEqual(red, canvas[2][3]));
+    }
+
 
 }
