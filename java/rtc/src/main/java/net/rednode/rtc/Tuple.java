@@ -11,6 +11,10 @@ public class Tuple {
     public static final double epsilon = 0.0000001;
 
 
+    public static double[] tuple(double x, double y, double z, double w) {
+        return new double[] {x, y, z, w};
+    }
+
     public static double[] point(double x, double y, double z) {
         return new double[] {x, y, z, 1.0};
     }
@@ -49,6 +53,69 @@ public class Tuple {
         if (Math.abs(Z(a) - Z(b)) > epsilon) return false;
         if (Math.abs(W(a) - W(b)) > epsilon) return false;
         return true;
+    }
+
+    public static double[] add(double[] a, double[] b) {
+        return new double[] {a[X] + b[X],
+                             a[Y] + b[Y],
+                             a[Z] + b[Z],
+                             a[W] + b[W]};
+    }
+
+    public static double[] sub(double[] a, double[] b) {
+        return new double[] {a[X] - b[X],
+                             a[Y] - b[Y],
+                             a[Z] - b[Z],
+                             a[W] - b[W]};
+    }
+
+    public static double[] negate(double[] tuple) {
+        return new double[] {0.0 - tuple[X],
+                             0.0 - tuple[Y],
+                             0.0 - tuple[Z],
+                             0.0 - tuple[W]};
+    }
+
+    public static double[] multiply(double[] tuple, double scalar) {
+        return new double[] {tuple[X] * scalar,
+                             tuple[Y] * scalar,
+                             tuple[Z] * scalar,
+                             tuple[W] * scalar};
+    }
+
+    public static double[] divide(double[] tuple, double scalar) {
+        return new double[] {tuple[X] / scalar,
+                             tuple[Y] / scalar,
+                             tuple[Z] / scalar,
+                             tuple[W] / scalar};
+    }
+
+    public static double magnitude(double[] tuple) {
+        return Math.sqrt(tuple[X] * tuple[X] +
+                         tuple[Y] * tuple[Y] +
+                         tuple[Z] * tuple[Z] +
+                         tuple[W] * tuple[W]);
+    }
+
+    public static double[] normalize(double[] tuple) {
+        double m = magnitude(tuple);
+        return new double[] {tuple[X] / m,
+                             tuple[Y] / m,
+                             tuple[Z] / m,
+                             tuple[W] / m};
+    }
+
+    public static double dot(double[] a, double[] b) {
+        return a[X] * b[X] +
+                a[Y] * b[Y] +
+                a[Z] * b[Z] +
+                a[W] * b[W];
+    }
+
+    public static double[] cross(double[] vectorA, double[] vectorB) {
+        return vector(vectorA[Y] * vectorB[Z] - vectorA[Z] * vectorB[Y],
+                      vectorA[Z] * vectorB[X] - vectorA[X] * vectorB[Z],
+                      vectorA[X] * vectorB[Y] - vectorA[Y] * vectorB[X]);
     }
 
 }
