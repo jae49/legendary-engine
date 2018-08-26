@@ -32,3 +32,6 @@
 **/.project
 **/.settings
 
+# Ignore temporary files
+**/*.swp
+
