@@ -1,14 +1,34 @@
-.gradle
-/build/
-
 # Ignore Gradle GUI config
-gradle-app.setting
+**/gradle-app.setting
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+!**/gradle-wrapper.jar
 
 # Cache of project
-.gradletasknamecache
+**/.gradletasknamecache
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+
+# Keep gradle temporary files out of repo
+**/.gradle
+
+# Keep generated binaries out of repo
+**/bin
+**/obj
+**/build
+**/out
+
+# Ignore Intellij IDEA project files
+# Generate as needed, but keep out of repo
+**/.idea
+**/*.iml
+**/*.iws
+**/*.ipr
+
+# Ignore Eclipse project files
+# Generate as needed, but keep out of repo
+**/.classpath
+**/.project
+**/.settings
+
