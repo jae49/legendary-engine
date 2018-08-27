@@ -366,5 +366,16 @@ public class TupleTest {
         assertTrue(tuplesEqual(red, canvas[2][3]));
     }
 
+    @Test
+    public void testPPMHeader() {
+        int w = 10;
+        int h = 15;
+        double[][][] canvas = Canvas.create(w, h);
+        String header = Canvas.generatePPMHeader(canvas);
+        String[] lines = header.split("\n");
+        assertEquals("P3", lines[0]);
+        assertEquals(w + " " + h, lines[1]);
+        assertEquals("255", lines[2]);
+    }
 
 }
