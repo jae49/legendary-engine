@@ -2,7 +2,7 @@ package net.rednode.rtc;
 
 import static net.rednode.rtc.Tuple.*;
 
-class SimpleCanon {
+public class SimpleCanon {
 
     private static class Projectile {
         double[] position;

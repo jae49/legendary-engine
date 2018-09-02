@@ -1,7 +1,9 @@
 package net.rednode.rtc;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.file.Path;
 
 import static net.rednode.rtc.Tuple.BLUE;
 import static net.rednode.rtc.Tuple.GREEN;
@@ -38,6 +40,16 @@ public class Canvas {
     @SuppressWarnings("WeakerAccess")
     public static int getHeight(double[][][] canvas) {
         return canvas[0].length;
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    public static void writePPMFile(double[][][] canvas, Path outfile)
+    throws IOException {
+        try (OutputStreamWriter output =
+                     new OutputStreamWriter(new FileOutputStream(outfile.toFile()))) {
+            output.write(generatePPMHeader(canvas));
+            writeCanvasPPMData(canvas, output);
+        }
     }
 
     public static String generatePPMHeader(double[][][] canvas) {
