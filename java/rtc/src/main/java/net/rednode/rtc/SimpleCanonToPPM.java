@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 
 import static net.rednode.rtc.Tuple.*;
 
-public class SimpleCanonToPPM {
+class SimpleCanonToPPM {
 
     private static class Projectile {
         double[] position;
