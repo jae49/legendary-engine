@@ -41,4 +41,19 @@ public class Matrix {
         return c;
     }
 
+    public static double[] multiply(double[][] matrix, double[] tuple) {
+        double[][] b2 = matrix(tuple.length, 1);
+        for (int row = 0; row < rows(b2); row++) {
+            b2[row][0] = tuple[row];
+        }
+        return reorient(multiply(matrix, b2));
+    }
+
+    private static double[] reorient(double[][] vtuple) {
+        double[] result = new double[vtuple.length];
+        for (int i=0; i < vtuple.length; i++) result[i] = vtuple[i][0];
+        return result;
+    }
+
+
 }

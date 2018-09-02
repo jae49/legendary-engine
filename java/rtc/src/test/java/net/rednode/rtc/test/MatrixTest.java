@@ -4,6 +4,7 @@ import net.rednode.rtc.Tuple;
 import org.junit.Test;
 
 import static net.rednode.rtc.Matrix.*;
+import static net.rednode.rtc.Tuple.tuple;
 import static org.junit.Assert.assertEquals;
 
 public class MatrixTest {
@@ -106,5 +107,26 @@ public class MatrixTest {
         assertEquals(89, c[1][1], Tuple.epsilon);
         assertEquals(152, c[2][0], Tuple.epsilon);
         assertEquals(163, c[2][1], Tuple.epsilon);
+    }
+
+    @Test
+    public void testMultiplyMatrixTuple() {
+        double[][] a = matrix(4, 4);
+        double[] b = tuple(1, 2, 3, 1);
+
+        setRow(a, 0, new double[] { 1, 2, 3, 4});
+        setRow(a, 1, new double[] { 2, 4, 4, 2});
+        setRow(a, 2, new double[] { 8, 6, 4, 1});
+        setRow(a, 3, new double[] { 0, 0, 0, 1});
+
+        double[] c= multiply(a, b);
+        assertEquals(4, c.length);
+
+        assertEquals(18, c[0], Tuple.epsilon);
+        assertEquals(24, c[1], Tuple.epsilon);
+        assertEquals(33, c[2], Tuple.epsilon);
+        assertEquals(1, c[3], Tuple.epsilon);
+
+
     }
 }
