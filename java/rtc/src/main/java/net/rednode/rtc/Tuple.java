@@ -13,7 +13,7 @@ public class Tuple {
     public static final int GREEN = 1;
     public static final int BLUE = 2;
     public static final int ALPHA = 3;
-    public static final double epsilon = 0.0000001;
+    public static final double epsilon = 0.00001;
 
 
     public static double[] tuple(double x, double y, double z, double w) {
