@@ -8,7 +8,7 @@ public enum TupleType {
     Point(1.0);
 
 
-    public double typenum;
+    public final double typenum;
 
     TupleType(double typenum) {
         this.typenum = typenum;

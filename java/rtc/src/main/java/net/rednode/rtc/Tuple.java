@@ -2,6 +2,7 @@ package net.rednode.rtc;
 
 import net.rednode.rtc.model.TupleType;
 
+@SuppressWarnings("WeakerAccess")
 public class Tuple {
 
     public static final int X = 0;
@@ -63,6 +64,8 @@ public class Tuple {
         if (Math.abs(X(a) - X(b)) > epsilon) return false;
         if (Math.abs(Y(a) - Y(b)) > epsilon) return false;
         if (Math.abs(Z(a) - Z(b)) > epsilon) return false;
+        //it may be redundant, but its clearer
+        //noinspection RedundantIfStatement
         if (Math.abs(W(a) - W(b)) > epsilon) return false;
         return true;
     }

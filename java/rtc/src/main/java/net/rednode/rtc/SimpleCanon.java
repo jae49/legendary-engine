@@ -2,7 +2,7 @@ package net.rednode.rtc;
 
 import static net.rednode.rtc.Tuple.*;
 
-public class SimpleCanon {
+class SimpleCanon {
 
     private static class Projectile {
         double[] position;
@@ -14,8 +14,8 @@ public class SimpleCanon {
         }
     }
 
-    private static double[] world_gravity = vector(0, -0.1, 0);
-    private static double[] world_wind = vector(-0.01, 0, 0);
+    private static final double[] world_gravity = vector(0, -0.1, 0);
+    private static final double[] world_wind = vector(-0.01, 0, 0);
 
     private static void tick(Projectile p) {
         p.position = add(p.position, p.velocity);

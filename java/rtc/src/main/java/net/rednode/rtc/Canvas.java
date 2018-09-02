@@ -17,20 +17,25 @@ public class Canvas {
         System.arraycopy(color, 0, canvas[x][y], 0, 4);
     }
 
+
+    @SuppressWarnings("unused")
     public static double[] pixelAt(double[][][] canvas, int x, int y) {
         return canvas[x][y];
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static int scale256(double d) {
         if (d < 0.0) return 0;
         if (d > 1.0) return 255;
         return (int) Math.round(d * 255.0);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static int getWidth(double[][][] canvas) {
         return canvas.length;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static int getHeight(double[][][] canvas) {
         return canvas[0].length;
     }
@@ -47,7 +52,6 @@ public class Canvas {
         int height = getHeight(canvas);
         for (int h = 0; h < height; h++) {
             boolean first = true;
-            int count = 0;
             StringBuilder sb = new StringBuilder();
             for (int w = 0; w < width; w++) {
                 if (first) {

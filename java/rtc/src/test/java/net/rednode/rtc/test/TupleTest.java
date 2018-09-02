@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import net.rednode.rtc.Canvas;
 import net.rednode.rtc.model.TupleType;
 
 import org.junit.Test;

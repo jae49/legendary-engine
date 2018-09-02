@@ -16,6 +16,7 @@ import static org.junit.Assert.assertTrue;
 
 public class CanvasTest {
 
+    @SuppressWarnings("ForLoopReplaceableByForEach")
     @Test
     public void testCanvasCreate() {
         // create a canvas
@@ -72,7 +73,7 @@ public class CanvasTest {
         Canvas.writePixel(canvas, 2, 1, color2);
         Canvas.writePixel(canvas, 4, 2, color3);
 
-        // write out ppm data to an outputstream
+        // write out ppm data to an output stream
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
             Canvas.writeCanvasPPMData(canvas, new OutputStreamWriter(bos));
@@ -108,7 +109,7 @@ public class CanvasTest {
             }
         }
 
-        // write out ppm data to an outputstream
+        // write out ppm data to an output stream
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
             Canvas.writeCanvasPPMData(canvas, new OutputStreamWriter(bos));
@@ -136,7 +137,7 @@ public class CanvasTest {
         int h = 2;
         double[][][] canvas = Canvas.create(w, h);
 
-        // write out ppm data to an outputstream
+        // write out ppm data to an output stream
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
             Canvas.writeCanvasPPMData(canvas, new OutputStreamWriter(bos));
