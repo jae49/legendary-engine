@@ -338,44 +338,6 @@ public class TupleTest {
         assertTrue(tuplesEqual(divide(a, scalar), c));
     }
 
-    @Test
-    public void testCanvasCreate() {
-        // create a canvas
-        int w = 10;
-        int h = 20;
-        double[][][] canvas = Canvas.create(w, h);
-        // every element should be 0.0
-        assertEquals(w, canvas.length);
-        for (int width = 0; width < canvas.length; width++) {
-            assertEquals(h, canvas[width].length);
-            for (int height = 0; height < canvas[width].length; height++) {
-                assertEquals(4, canvas[width][height].length);
-                for (int i = 0; i < 4; i++) assertEquals(0, canvas[width][height][i], epsilon);
-            }
-        }
-    }
 
-    @Test
-    public void testCanvasPixelWrite() {
-        // create a canvas
-        int w = 10;
-        int h = 20;
-        double[] red = color(1, 0, 0);
-        double[][][] canvas = Canvas.create(w, h);
-        Canvas.writePixel(canvas, 2, 3, red);
-        assertTrue(tuplesEqual(red, canvas[2][3]));
-    }
-
-    @Test
-    public void testPPMHeader() {
-        int w = 10;
-        int h = 15;
-        double[][][] canvas = Canvas.create(w, h);
-        String header = Canvas.generatePPMHeader(canvas);
-        String[] lines = header.split("\n");
-        assertEquals("P3", lines[0]);
-        assertEquals(w + " " + h, lines[1]);
-        assertEquals("255", lines[2]);
-    }
 
 }

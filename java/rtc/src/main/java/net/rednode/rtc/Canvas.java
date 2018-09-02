@@ -1,6 +1,11 @@
 package net.rednode.rtc;
 
+import java.io.IOException;
 import java.io.OutputStreamWriter;
+
+import static net.rednode.rtc.Tuple.BLUE;
+import static net.rednode.rtc.Tuple.GREEN;
+import static net.rednode.rtc.Tuple.RED;
 
 public class Canvas {
 
@@ -36,12 +41,44 @@ public class Canvas {
         return "P3\n" + width + " " + height + "\n255\n";
     }
 
-    public static void writeCanvasPPMData(double[][][] canvas, OutputStreamWriter os) {
+    public static void writeCanvasPPMData(double[][][] canvas, OutputStreamWriter os)
+    throws IOException {
         int width = getWidth(canvas);
         int height = getHeight(canvas);
         for (int h = 0; h < height; h++) {
+            boolean first = true;
+            int count = 0;
+            StringBuilder sb = new StringBuilder();
             for (int w = 0; w < width; w++) {
-                //TODO: Finish
+                if (first) {
+                    first = false;
+                } else {
+                    sb.append(' ');
+                }
+                sb.append(Integer.toString(scale256(canvas[w][h][RED])));
+                sb.append(' ');
+                sb.append(Integer.toString(scale256(canvas[w][h][GREEN])));
+                sb.append(' ');
+                sb.append(Integer.toString(scale256(canvas[w][h][BLUE])));
+            }
+            writeSplitLine(os, sb.toString());
+        }
+        os.flush();
+    }
+
+    private static void writeSplitLine(OutputStreamWriter os, String data)
+    throws IOException {
+        while (!"".equals(data)) {
+            if (data.length() <= 70) {
+                os.write(data);
+                os.write('\n');
+                data = "";
+            } else {
+                // find first space at 70 or earlier
+                int end = data.substring(0, 70).lastIndexOf(' ');
+                os.write(data, 0, end);
+                os.write('\n');
+                data = data.substring(end + 1);
             }
         }
     }
