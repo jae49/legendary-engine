@@ -4,8 +4,8 @@ import net.rednode.rtc.Matrix;
 import net.rednode.rtc.Tuple;
 import org.junit.Test;
 
-import static net.rednode.rtc.Transform.scale;
-import static net.rednode.rtc.Transform.translate;
+import static net.rednode.rtc.Matrix.inverse;
+import static net.rednode.rtc.Transform.*;
 import static net.rednode.rtc.Tuple.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -32,7 +32,7 @@ public class TransformTest {
 
         double[] expected = point(-8, 7, 3);
 
-        double[] result = Matrix.multiply(Matrix.inverse(transform), point);
+        double[] result = Matrix.multiply(inverse(transform), point);
 
         assertEquals(4, result.length);
         assertTrue(Tuple.tuplesEqual(expected, result));
@@ -79,7 +79,7 @@ public class TransformTest {
         double[] vector = vector(-4, 6, 8);
 
         double[] expected = vector(-2, 2, 2);
-        double[] result = Matrix.multiply(Matrix.inverse(transform), vector);
+        double[] result = Matrix.multiply(inverse(transform), vector);
 
         assertTrue(Tuple.tuplesEqual(expected, result));
     }
@@ -93,6 +93,83 @@ public class TransformTest {
         double[] result = Matrix.multiply(transform, point);
 
         assertTrue(Tuple.tuplesEqual(expected, result));
+    }
+
+    @Test
+    public void testRotationX() {
+        double[] point = point(0, 1, 0);
+        double[][] half_quarter = rotateX(Math.PI / 4.0);
+        double[][] full_quarter = rotateX(Math.PI / 2.0);
+
+        //half quarter * point
+        double[] expected = point(0, Math.sqrt(2.0) / 2.0, Math.sqrt(2.0) / 2.0);
+        double[] result = Matrix.multiply(half_quarter, point);
+        assertEquals(expected[X], result[X], Tuple.epsilon);
+        assertEquals(expected[Y], result[Y], Tuple.epsilon);
+        assertEquals(expected[Z], result[Z], Tuple.epsilon);
+
+        //full_quarter * point
+        expected = point(0, 0, 1);
+        result = Matrix.multiply(full_quarter, point);
+        assertEquals(expected[X], result[X], Tuple.epsilon);
+        assertEquals(expected[Y], result[Y], Tuple.epsilon);
+        assertEquals(expected[Z], result[Z], Tuple.epsilon);
+    }
+
+    @Test
+    public void testRotationXInverse() {
+        double[] point = point(0, 1, 0);
+        double[][] half_quarter = rotateX(Math.PI / 4.0);
+        double[][] inv_half_quarter = inverse(half_quarter);
+
+        double[] expected = point(0, Math.sqrt(2) / 2.0, -(Math.sqrt(2) / 2.0));
+        double[] result = Matrix.multiply(inv_half_quarter, point);
+        assertEquals(expected[X], result[X], Tuple.epsilon);
+        assertEquals(expected[Y], result[Y], Tuple.epsilon);
+        assertEquals(expected[Z], result[Z], Tuple.epsilon);
+
+    }
+
+    @Test
+    public void testRotationY() {
+        double[] point = point(0, 0, 1);
+        double[][] half_quarter = rotateY(Math.PI / 4.0);
+        double[][] full_quarter = rotateY(Math.PI / 2.0);
+
+        //half quarter * point
+        double[] expected = point(Math.sqrt(2.0) / 2.0, 0, Math.sqrt(2.0) / 2.0);
+        double[] result = Matrix.multiply(half_quarter, point);
+        assertEquals(expected[X], result[X], Tuple.epsilon);
+        assertEquals(expected[Y], result[Y], Tuple.epsilon);
+        assertEquals(expected[Z], result[Z], Tuple.epsilon);
+
+        //full_quarter * point
+        expected = point(1, 0, 0);
+        result = Matrix.multiply(full_quarter, point);
+        assertEquals(expected[X], result[X], Tuple.epsilon);
+        assertEquals(expected[Y], result[Y], Tuple.epsilon);
+        assertEquals(expected[Z], result[Z], Tuple.epsilon);
+    }
+
+    @Test
+    public void testRotationZ() {
+        double[] point = point(0, 1, 0);
+        double[][] half_quarter = rotateZ(Math.PI / 4.0);
+        double[][] full_quarter = rotateZ(Math.PI / 2.0);
+
+        //half quarter * point
+        double[] expected = point(-(Math.sqrt(2.0) / 2.0),Math.sqrt(2.0) / 2.0, 0);
+        double[] result = Matrix.multiply(half_quarter, point);
+        assertEquals(expected[X], result[X], Tuple.epsilon);
+        assertEquals(expected[Y], result[Y], Tuple.epsilon);
+        assertEquals(expected[Z], result[Z], Tuple.epsilon);
+
+        //full_quarter * point
+        expected = point(-1, 0, 0);
+        result = Matrix.multiply(full_quarter, point);
+        assertEquals(expected[X], result[X], Tuple.epsilon);
+        assertEquals(expected[Y], result[Y], Tuple.epsilon);
+        assertEquals(expected[Z], result[Z], Tuple.epsilon);
     }
 
 }

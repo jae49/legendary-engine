@@ -19,4 +19,31 @@ public class Transform {
         scaled[2][2] = z;
         return scaled;
     }
+
+    public static double[][] rotateX(double radians) {
+        double[][] rotation_x = Matrix.identity(4);
+        rotation_x[1][1] = Math.cos(radians);
+        rotation_x[1][2] = -Math.sin(radians);
+        rotation_x[2][1] = Math.sin(radians);
+        rotation_x[2][2] = Math.cos(radians);
+        return rotation_x;
+    }
+
+    public static double[][] rotateY(double radians) {
+        double[][] rotation_y = Matrix.identity(4);
+        rotation_y[0][0] = Math.cos(radians);
+        rotation_y[0][2] = Math.sin(radians);
+        rotation_y[2][0] = -Math.sin(radians);
+        rotation_y[2][2] = Math.cos(radians);
+        return rotation_y;
+    }
+
+    public static double[][] rotateZ(double radians) {
+        double[][] rotation_z = Matrix.identity(4);
+        rotation_z[0][0] = Math.cos(radians);
+        rotation_z[0][1] = -Math.sin(radians);
+        rotation_z[1][0] = Math.sin(radians);
+        rotation_z[1][1] = Math.cos(radians);
+        return rotation_z;
+    }
 }
